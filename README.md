@@ -1,5 +1,5 @@
 # ytdlp-cmd_scripts
- Um monte de scripts em batch não-organizados para o programa yt-dlp.\
+ Um monte de scripts em batch não-organizados para o programa yt-dlp.
  
 ### ytarc - Arquivação de canais
 Arquivação da mais alta qualidade para mp4 de canais:\
