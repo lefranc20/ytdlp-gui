@@ -3,7 +3,7 @@
 ### ytarc - Arquivação de canais
 ```sh
 Arquivação da mais alta qualidade para mp4 de canais:\
-yt-dlp -f bestvideo+bestaudio/bestvideo+bestaudio --merge-output-format mp4  --all-subs --embed-subs --write-annotations --write-comments --embed-thumbnail --write-thumbnail --embed-metadata --embed-chapters --write-description --write-info-json -o "%(uploader)s/%(title)s[%(upload_date)s][url_or_id_is - %(id)s].%(ext)s" %link%
+yt-dlp -f bestvideo+bestaudio/bestvideo+bestaudio --merge-output-format mp4  --all-subs --embed-subs --write-annotations --write-comments --embed-thumbnail --write-thumbnail --embed-metadata --embed-chapters --write-description --write-info-json -o "%%(uploader)s/%%(title)s[%%(upload_date)s][url_or_id_is - %%(id)s].%%(ext)s" %link%
 ```
 ### ytmp4 - Qualidade qualquer em mp4
 Baixar um video de uma qualidade qualquer em mp4:\
@@ -17,7 +17,7 @@ yt-dlp -f bestvideo+bestaudio/bestvideo+bestaudio --merge-output-format mp4 --em
 ```
 ### ytmsc - Música
 ```sh
-yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 192k --embed-metadata --embed-thumbnail --write-thumbnail -o "%(uploader)s/%(playlist_title)s/%(playlist_index)s-%(title)s.%(ext)s" %link%
+yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 192k --embed-metadata --embed-thumbnail --write-thumbnail -o "%%(uploader)s/%%(playlist_title)s/%%(playlist_index)s-%%(title)s.%%(ext)s" %link%
 ```
 ### ytpls - Playlist
 ```sh
