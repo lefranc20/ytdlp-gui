@@ -2,7 +2,7 @@
 
 ::set /p link="> "
 
-echo "Baixar um video de uma qualidade qualquer em mp4"
+echo "Baixar um video de uma qualidade pré-definida em mp4"
 set /p link="Digite o link> "
 
 

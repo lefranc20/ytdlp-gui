@@ -1,6 +1,6 @@
 @echo off
 
-echo "Download de playlists no formato mp4"
+echo "Download de playlists na qualidade pré-definida"
 echo "Formato: %%(playlist_title)s/%%(playlist_index)s-%%(title)s [%%(upload_date)s] [%%(id)s].%%(ext)s"
 set /p link="Digite o link> "
 

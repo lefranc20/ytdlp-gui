@@ -1,5 +1,6 @@
 @echo off
 
+echo "Arquivação numa qualidade pré-definida"
 echo Formato: %%(uploader)s/%%(playlist_title)s/%%(title)s [%%(upload_date)s] [%%(id)s].%%(ext)s
 set /p link="Digite um link para arquivar um canal do youtube: "
 
