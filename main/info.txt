@@ -1,0 +1,26 @@
+Variáveis do Agregador:
+
+1. Qualidade --->  %qualidade%  ->  -f mp4
+	echo Escolha de Qualidade:
+	echo 1. Recomendado pelo programa, pre-encodado (-f mp4)
+	echo 2. A melhor possivel (-f bestvideo+bestaudio/bestvideo+bestaudio --merge-output-format mp4)
+	echo 3. 360p, re-encodado (-f bestvideo[height<=360]+bestaudio/best[height<=360] --merge-output-format mp4)
+	echo 4. 480p, re-encodado (-f bestvideo[height<=480]+bestaudio/best[height<=480] --merge-output-format mp4)
+	echo 5. 720p, re-encodado (-f bestvideo[height<=720]+bestaudio/best[height<=720] --merge-output-format mp4)
+	echo 6. 1080p, re-encodado (-f bestvideo[height<=1080]+bestaudio/best[height<=1080] --merge-output-format mp4)
+	echo 7. A pior possivel
+	
+	echo:
+
+2. Opcionais --->  %meta% -> pasta com metadados, metadados sem pasta, nenhum metadado escrito apenas embeded
+
+
+3. Formato   --->  %formato% -> -o "%%(title)s [%%(upload_date)s] [%%(id)s].%%(ext)s"
+
+
+
+
+4. URL	  --->	%url% -> watch?v=i4jxz0RVMTs
+
+
+Resultado: yt-dlp %qualidade% %meta %formato% %url%
