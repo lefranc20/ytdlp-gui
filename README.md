@@ -1,4 +1,4 @@
-Um script em batch com a finalidade de construir o teu proprio template de execução do yt-dlp.
+Dois scripts em batch e bach, com a finalidade de construir o teu proprio template de execução do yt-dlp.
 
 
 # Snippets
