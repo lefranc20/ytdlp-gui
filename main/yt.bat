@@ -60,8 +60,10 @@ if "%op%" == "1" (
 :: 3. Formato   --->  %formato% -> -o "%%(title)s [%%(upload_date)s] [%%(id)s].%%(ext)s"
 echo Escolha de formato (a barra simboliza um diretorio):
 echo 1. Video/Audio: "TITULO_DO_VIDEO" ["DATA_DE_UPLOAD"] ["ID/URL"]."EXTENSAO"
-echo 2. Playlist com indice: "TITULO_DA_PLAYLIST"/"INDICE_DA_PLAYLIST"-"TITULO_DO_VIDEO" ["DATA_DE_UPLOAD"] ["ID/URL"]."EXTENSAO"
-echo 3. Playlist sem indice: "TITULO_DA_PLAYLIST"/"TITULO_DO_VIDEO" ["DATA_DE_UPLOAD"] ["ID/URL"]."EXTENSAO"
+echo 2. Video/Audio em uma pasta: "TITULO_DO_VIDEO"/"TITULO_DO_VIDEO" ["DATA_DE_UPLOAD"] ["ID/URL"]."EXTENSAO"
+echo 3. Playlist com indice: "TITULO_DA_PLAYLIST"/"INDICE_DA_PLAYLIST"-"TITULO_DO_VIDEO" ["DATA_DE_UPLOAD"] ["ID/URL"]."EXTENSAO"
+echo 4. Playlist sem indice: "TITULO_DA_PLAYLIST"/"TITULO_DO_VIDEO" ["DATA_DE_UPLOAD"] ["ID/URL"]."EXTENSAO"
+echo 5. Arquivacao de canais: "UPLOADER"/"TITULO_DA_PLAYLIST"/"TITULO_DO_VIDEO" ["DATA_DE_UPLOAD"] ["ID/URL"]."EXTENSAO" 
 echo:
 set /p op="Digite a opcao> "
 echo:
@@ -69,9 +71,13 @@ echo:
 if "%op%" == "1" (
 	set formato=-o "%%(title)s [%%(upload_date)s] [%%(id)s].%%(ext)s"
 ) else if "%op%" == "2" (
-	set formato=-o "%%(playlist_title)s/%%(playlist_index)s-%%(title)s [%%(upload_date)s] [%%(id)s].%%(ext)s"
+	set formato=-o "%%(title)s/%%(title)s [%%(upload_date)s] [%%(id)s].%%(ext)s"
 ) else if "%op%" == "3" (
+	set formato=-o "%%(playlist_title)s/%%(playlist_index)s-%%(title)s [%%(upload_date)s] [%%(id)s].%%(ext)s"
+) else if "%op%" == "4" (
 	set formato=-o "%%(playlist_title)s/%%(title)s [%%(upload_date)s] [%%(id)s].%%(ext)s"
+) else if "%op%" == "5" (
+	set formato=-o "%%(uploader)s/%%(playlist_title)s/%%(title)s [%%(upload_date)s] [%%(id)s].%%(ext)s"
 ) else (
 	echo ESSA OPCAO NAO EXISTE
 )
