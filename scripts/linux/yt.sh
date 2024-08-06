@@ -29,7 +29,7 @@ case $opcao in
         padrao_de_saida="./%(title)s [%(id)s].%(ext)s"
 
         # Executa o yt-dlp
-        "$YT_DLP" -f "bestvideo[height<=$res]+bestaudio/best[height<=$res]" --merge-output-format mp4 --write-info-json --write-comments -o "$padrao_de_saida" "$url"
+        "$YT_DLP" -f "bestvideo[height<=$res]+bestaudio/best[height<=$res]" --merge-output-format mp4 --write-info-json --write-comments --all-subs --write-auto-subs --embed-subs --embed-thumbnail -o "$padrao_de_saida" "$url"
 
         # Encontra o nome do arquivo MP4 baixado
         nome_do_video=$(ls ./*.mp4 2>/dev/null | head -n 1)
