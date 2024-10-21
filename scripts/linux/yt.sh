@@ -28,8 +28,10 @@ case $opcao in
         # Define o padrão de nome do arquivo
         padrao_de_saida="./%(title)s [%(id)s].%(ext)s"
 
+
+        # Escreve as legendas automáticas (especifique senão ele irá chamar todas as possíveis!): --write-auto-subs 
         # Executa o yt-dlp
-        "$YT_DLP" -f "bestvideo[height<=$res]+bestaudio/best[height<=$res]" --merge-output-format mp4 --write-info-json --write-comments --all-subs --write-auto-subs --embed-subs --embed-thumbnail -o "$padrao_de_saida" "$url"
+        "$YT_DLP" --cookies cookies.txt -f "bestvideo[height<=$res]+bestaudio/best[height<=$res]" --merge-output-format mp4 --write-info-json --write-comments --all-subs --embed-subs --embed-thumbnail --embed-metadata -o "$padrao_de_saida" "$url"
 
         # Encontra o nome do arquivo MP4 baixado
         nome_do_video=$(ls ./*.mp4 2>/dev/null | head -n 1)
@@ -72,10 +74,12 @@ case $opcao in
         # Substitui o arquivo original e limpa arquivos extras
         mv "${nome_do_video%.mp4}_com_metadados.mp4" "$nome_do_video"
         rm "$info_json" metadata.txt
-    ;;
+        ;;
     4)
+        padrao_de_saida_playlist="./%(playlist_title)s/%(playlist_index)s-%(title)s [%(upload_date)s] [%(id)s].%(ext)s" 
+
         # Baixar uma playlist inteira
-        "$YT_DLP" -i "${embed[@]}" "${parseMetadata[@]}" "$url"
+        "$YT_DLP" -o "$padrao_de_saida_playlist" "$url"
         ;;
     *)
         echo "Opção inválida."
