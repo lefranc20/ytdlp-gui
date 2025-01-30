@@ -31,7 +31,7 @@ case $opcao in
 
         # Escreve as legendas automáticas (especifique senão ele irá chamar todas as possíveis!): --write-auto-subs 
         # Executa o yt-dlp
-        "$YT_DLP" --cookies cookies.txt -f "bestvideo[height<=$res]+bestaudio/best[height<=$res]" --merge-output-format mp4 --write-info-json --write-comments --all-subs --embed-subs --embed-thumbnail --embed-metadata -o "$padrao_de_saida" "$url"
+        "$YT_DLP" --cookies-from-browser chrome -f "bestvideo[height<=$res]+bestaudio/best[height<=$res]" --merge-output-format mp4 --write-info-json --write-comments --all-subs --embed-subs --embed-thumbnail --embed-metadata -o "$padrao_de_saida" "$url"
 
         # Encontra o nome do arquivo MP4 baixado
         nome_do_video=$(ls ./*.mp4 2>/dev/null | head -n 1)
