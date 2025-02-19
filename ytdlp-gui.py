@@ -67,9 +67,9 @@ def iniciar_download():
         comando = f'yt-dlp -f bestvideo+bestaudio --merge-output-format mp4 -o "{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s" "{url}"'
     elif tipo == "resolucao":
         resolucao = entrada_resolucao.get()
-        comando = f'yt-dlp -f "bestvideo[height<={resolucao}]+bestaudio/best[height<={resolucao}]" --merge-output-format mp4 -o "{diretorio}/%(title)s [%%(upload_date)s] [%%(id)s].%(ext)s" "{url}"'
+        comando = f'yt-dlp -f "bestvideo[height<={resolucao}]+bestaudio/best[height<={resolucao}]" --merge-output-format mp4 -o "{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s" "{url}"'
     elif tipo == "playlist":
-        comando = f'yt-dlp -o "{diretorio}/%(playlist_title)s/%(playlist_index)s-%(title)s [%%(upload_date)s] [%%(id)s].%(ext)s" "{url}"'
+        comando = f'yt-dlp -o "{diretorio}/%(playlist_title)s/%(playlist_index)s-%(title)s [%(upload_date)s] [%(id)s].%(ext)s" "{url}"'
     
     thread = threading.Thread(target=executar_comando, args=(comando,))
     thread.start()
@@ -93,7 +93,7 @@ entrada_diretorio.pack()
 ultimo_diretorio = carregar_config()
 entrada_diretorio.insert(0, ultimo_diretorio)  # Preenche o campo com o diretório salvo
 
-tk.Button(tela, text="Selecionar", command=selecionar_diretorio).pack()
+tk.Button(tela, text="Selecionar", command=selecionar_diretorio).pack(pady=10)
 
 # Opções de download
 opcao_escolhida = tk.StringVar()
@@ -127,7 +127,7 @@ progresso.pack(fill=tk.X, padx=5, pady=5)
 
 # Área de saída de texto (simulando um terminal, para visualizar a saída dos comandos reais)
 saida_texto = tk.Text(tela, height=10, width=60, bg="black", fg="white", font=("Courier", 9))
-saida_texto.pack()
+saida_texto.pack(fill=tk.X)
 
 # Icone (de teste meuy)
 ico = Image.open('icone.png')
