@@ -1,4 +1,4 @@
-GUI para o yt-dlp. Feita utilizando a interface gráfica nativa do **Python**, **Tkinter**.
+Um programa pequeno adaptando uma GUI para o yt-dlp. Feito utilizando a interface gráfica nativa do **Python**: **Tkinter**.
 
 Necessita dos seguintes pacotes:
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp)
