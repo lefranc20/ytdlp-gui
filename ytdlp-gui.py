@@ -141,7 +141,7 @@ def iniciar_download():
         resolucao = entrada_resolucao.get()
         comando = f'yt-dlp --cookies-from-browser chrome -f "bestvideo[height<={resolucao}]+bestaudio/best[height<={resolucao}]" --merge-output-format mp4 -o "{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --write-info-json "{url}"'
     elif tipo == "playlist":
-        comando = f'yt-dlp --cookies-from-browser chrome -o "{diretorio}/%(playlist_title)s/%(playlist_index)s-%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --write-info-json "{url}"'
+        comando = f'yt-dlp --cookies-from-browser chrome -o "{diretorio}/%(playlist_title)s/%(playlist_index)s - %(title)s [%(upload_date)s] [%(id)s].%(ext)s" --write-info-json "{url}"'
     elif tipo == "listar_formatos":
         listar_formatos(url)
         return
