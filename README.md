@@ -7,14 +7,19 @@ Necessita dos seguintes pacotes:
 - [pillow](https://github.com/python-pillow/Pillow) (Biblioteca de Imagem do Python);
 
 # Instalação e Execução
-Eles podem ser instalados pelo pip (yt-dlp, ffmpeg e ffprobe podem baixados e adicionados às variáveis de ambiente no Windows).
+Eles todos podem ser instalados pelo pip (obs: no Linux provavelmente vai ser pip3):
+``` bash
+pip install -r requirements.txt
+```
+
+Ou manualmente especificados abaixo.
 
 ## Windows:
-``` cmd
-python -m pip install pillow ffmpeg ffprobe yt-dlp
+``` powershell
+python -m pip install pillow ffmpeg ffprobe yt-dlp tk
 ```
 
 ## Linux
 ``` bash
-pip install pillow ffmpeg ffprobe yt-dlp
+pip3 install pillow ffmpeg ffprobe yt-dlp tk
 ```

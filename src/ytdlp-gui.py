@@ -4,6 +4,7 @@ import subprocess
 import threading
 import json
 import os
+import sys
 from PIL import Image, ImageTk
 
 CONFIG_FILE = "config.json"  # Nome do arquivo de configuração, para o local do diretório

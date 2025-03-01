@@ -1,0 +1,4 @@
+tk
+pillow
+yt-dlp
+ffmpeg
