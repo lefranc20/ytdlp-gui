@@ -1,2 +1,7 @@
 # local do diretório
 *.json
+
+# outras coisas
+build/
+dist/
+*.spec

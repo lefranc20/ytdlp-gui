@@ -141,7 +141,7 @@ def iniciar_download():
         resolucao = entrada_resolucao.get()
         comando = f'yt-dlp --cookies-from-browser chrome -f "bestvideo[height<={resolucao}]+bestaudio/best[height<={resolucao}]" --merge-output-format mp4 -o "{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --write-info-json "{url}"'
     elif tipo == "playlist":
-        comando = f'yt-dlp --cookies-from-browser chrome -o "{diretorio}/%(playlist_title)s/%(playlist_index)s - %(title)s [%(upload_date)s] [%(id)s].%(ext)s" --write-info-json "{url}"'
+        comando = f'yt-dlp --cookies-from-browser chrome -o "{diretorio}/%(playlist_title)s/%(playlist_index)s-%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --write-info-json "{url}"'
     elif tipo == "listar_formatos":
         listar_formatos(url)
         return
@@ -207,10 +207,24 @@ progresso.pack(fill=tk.X, padx=5, pady=5)
 saida_texto = tk.Text(tela, height=10, width=60, bg="black", fg="white", font=("Courier", 9))
 saida_texto.pack(fill=tk.X)
 
-# Icone (de teste meuy)
-ico = Image.open('icone.png')
-photo = ImageTk.PhotoImage(ico)
-tela.wm_iconphoto(False, photo)
+# Icone (NOVO)
+def obter_caminho_recurso(caminho_relativo):
+    """Retorna o caminho correto do arquivo, seja rodando como script ou como executável."""
+    if getattr(sys, 'frozen', False):  # Verifica se está rodando como executável
+        base_path = sys._MEIPASS  # PyInstaller armazena arquivos temporários aqui
+    else:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, caminho_relativo)
+
+# Carregar o ícone corretamente
+icone_path = obter_caminho_recurso('icone.png')
+try:
+    ico = Image.open(icone_path)
+    photo = ImageTk.PhotoImage(ico)
+    tela.wm_iconphoto(False, photo)
+except Exception as e:
+    print(f"Erro ao carregar o ícone: {e}")
+
 
 # Rodando a interface
 tela.mainloop()
