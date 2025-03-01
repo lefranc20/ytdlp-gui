@@ -102,7 +102,7 @@ def executar_comando(comando, tipo):
 def listar_formatos(url):
     # Lista os formatos disponíveis para o vídeo usando yt-dlp -F
     try:
-        comando = f'yt-dlp --cookies-from-browser chrome -F "{url}"'
+        comando = f'yt-dlp -F "{url}"'
         resultado = subprocess.run(comando, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         
         if resultado.returncode == 0:
@@ -111,13 +111,21 @@ def listar_formatos(url):
             
             # Exibe o resultado em um popup
             popup = tk.Toplevel(tela)
-            popup.title("Formatos Disponíveis")
-            popup.geometry("600x400")
+            popup.title("Formatos Disponíveis ('yt-dlp -F')")
+            popup.geometry("800x600")  # Aumentei a geometria para acomodar mais texto
             
-            texto_formatos = scrolledtext.ScrolledText(popup, wrap=tk.WORD, width=80, height=20, font=("Courier", 8))  # Fonte menor
+            # Criando o widget ScrolledText sem quebra de linha
+            texto_formatos = scrolledtext.ScrolledText(popup, wrap=tk.NONE, font=("Courier", 8))  # Sem wrap
             texto_formatos.insert(tk.END, resultado.stdout)
-            texto_formatos.pack(padx=10, pady=10)
+            texto_formatos.config(state=tk.DISABLED)  # Impede edição
+
+            # Criando a barra de rolagem  horizontal
+            scrollbar_horizontal = tk.Scrollbar(popup, orient=tk.HORIZONTAL, command=texto_formatos.xview)
+            texto_formatos.config(xscrollcommand=scrollbar_horizontal.set)
             
+            texto_formatos.pack(fill=tk.BOTH, expand=True)  # Expande para o tamanho disponível
+            scrollbar_horizontal.pack(side=tk.BOTTOM, fill=tk.X)
+
             btn_fechar = tk.Button(popup, text="Fechar", command=popup.destroy)
             btn_fechar.pack(pady=10)
         else:
@@ -128,6 +136,7 @@ def listar_formatos(url):
 def iniciar_download():
     url = entrada_url.get()
     diretorio = entrada_diretorio.get()
+    
     if not url or not diretorio or not opcao_escolhida.get():
         messagebox.showerror("Erro", "Preencha todos os campos!")
         return
@@ -135,14 +144,14 @@ def iniciar_download():
     tipo = opcao_escolhida.get()
     if tipo == "audio":
         formato = formato_audio.get()
-        comando = f'yt-dlp --cookies-from-browser chrome -f bestaudio -x --audio-format {formato} -o "{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --write-info-json "{url}"'
+        comando = f'yt-dlp  -f bestaudio -x --audio-format {formato} -o "{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --write-info-json "{url}"'
     elif tipo == "melhor_video":
-        comando = f'yt-dlp --cookies-from-browser chrome -f bestvideo+bestaudio --merge-output-format mp4 -o "{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --write-info-json "{url}"'
+        comando = f'yt-dlp -f bestvideo+bestaudio --merge-output-format mp4 -o "{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --write-info-json "{url}"'
     elif tipo == "resolucao":
         resolucao = entrada_resolucao.get()
-        comando = f'yt-dlp --cookies-from-browser chrome -f "bestvideo[height<={resolucao}]+bestaudio/best[height<={resolucao}]" --merge-output-format mp4 -o "{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --write-info-json "{url}"'
+        comando = f'yt-dlp -f "bestvideo[height<={resolucao}]+bestaudio/best[height<={resolucao}]" --merge-output-format mp4 -o "{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --write-info-json "{url}"'
     elif tipo == "playlist":
-        comando = f'yt-dlp --cookies-from-browser chrome -o "{diretorio}/%(playlist_title)s/%(playlist_index)s-%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --write-info-json "{url}"'
+        comando = f'yt-dlp -o "{diretorio}/%(playlist_title)s/%(playlist_index)s-%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --write-info-json "{url}"'
     elif tipo == "listar_formatos":
         listar_formatos(url)
         return
@@ -218,7 +227,7 @@ def obter_caminho_recurso(caminho_relativo):
     return os.path.join(base_path, caminho_relativo)
 
 # Carregar o ícone corretamente
-icone_path = obter_caminho_recurso('icone.png')
+icone_path = obter_caminho_recurso('src/icone.png')
 try:
     ico = Image.open(icone_path)
     photo = ImageTk.PhotoImage(ico)
