@@ -144,14 +144,14 @@ def iniciar_download():
     tipo = opcao_escolhida.get()
     if tipo == "audio":
         formato = formato_audio.get()
-        comando = f'yt-dlp  -f bestaudio -x --audio-format {formato} -o "{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --write-info-json "{url}"'
+        comando = f'yt-dlp  -f bestaudio -x --audio-format {formato} -o "{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --embed-metadata --embed-thumbnail --write-info-json "{url}"'
     elif tipo == "melhor_video":
-        comando = f'yt-dlp -f bestvideo+bestaudio --merge-output-format mp4 -o "{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --write-info-json "{url}"'
+        comando = f'yt-dlp -f bestvideo+bestaudio --merge-output-format mp4 -o "{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --embed-metadata --embed-thumbnail --write-info-json "{url}"'
     elif tipo == "resolucao":
         resolucao = entrada_resolucao.get()
-        comando = f'yt-dlp -f "bestvideo[height<={resolucao}]+bestaudio/best[height<={resolucao}]" --merge-output-format mp4 -o "{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --write-info-json "{url}"'
+        comando = f'yt-dlp -f "bestvideo[height<={resolucao}]+bestaudio/best[height<={resolucao}]" --merge-output-format mp4 -o "{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --embed-metadata --embed-thumbnail --write-info-json "{url}"'
     elif tipo == "playlist":
-        comando = f'yt-dlp -o "{diretorio}/%(playlist_title)s/%(playlist_index)s-%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --write-info-json "{url}"'
+        comando = f'yt-dlp -o "{diretorio}/%(playlist_title)s/%(playlist_index)s-%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --embed-metadata --embed-thumbnail --write-info-json "{url}"'
     elif tipo == "listar_formatos":
         listar_formatos(url)
         return
@@ -162,12 +162,21 @@ def iniciar_download():
 # Criando a interface
 tela = tk.Tk()
 tela.title("ytdlp-GUI")
-tela.geometry("500x400")
+tela.geometry("700x450")
+
+# Frame para a URL e local de Download
+frame_inicio = tk.Frame(tela)
+frame_inicio.pack()
 
 # Entrada da URL
-tk.Label(tela, text="URL do Vídeo/Playlist:").pack()
-entrada_url = tk.Entry(tela, width=50)
-entrada_url.pack()
+tk.Label(frame_inicio, text="URL do Vídeo/Playlist:").grid(column=0, row=0)
+entrada_url = tk.Entry(frame_inicio, width=50)
+entrada_url.grid(column=1, row=0)
+
+# Botão para limpar a URL
+botaoLimpar = tk.Button(frame_inicio, text="Limpar a URL", font=("Helvetica", 10))
+botaoLimpar.grid(column=2, row=0, pady=10)
+botaoLimpar.config(command=lambda: entrada_url.delete(0, tk.END))
 
 # Escolha do diretório
 tk.Label(tela, text="Diretório de Download:").pack()
