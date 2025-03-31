@@ -74,7 +74,7 @@ def embutir_metadados(nome_arquivo, metadata):
 def executar_comando(comando, tipo):
     try:
         progresso['value'] = 0
-        process = subprocess.Popen(comando, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+        process = subprocess.Popen(comando, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
         saida_texto.delete(1.0, tk.END)
         for linha in process.stdout:
             saida_texto.insert(tk.END, linha)
@@ -144,14 +144,48 @@ def iniciar_download():
     tipo = opcao_escolhida.get()
     if tipo == "audio":
         formato = formato_audio.get()
-        comando = f'yt-dlp  -f bestaudio -x --audio-format {formato} -o "{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --embed-metadata --embed-thumbnail --write-info-json "{url}"'
+        comando = [
+            "yt-dlp",
+            "-f", "bestaudio",
+            "-x",
+            "--audio-format", formato,
+            "-o", f"{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s",
+            "--embed-metadata",
+            "--embed-thumbnail",
+            "--write-info-json",
+            url
+        ]
     elif tipo == "melhor_video":
-        comando = f'yt-dlp -f bestvideo+bestaudio --merge-output-format mp4 -o "{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --embed-metadata --embed-thumbnail --write-info-json "{url}"'
+        comando = [
+            "yt-dlp",
+            "-f", "bestvideo+bestaudio", "--merge-output-format", "mp4",
+            "-o", f"{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s",
+            "--embed-metadata",
+            "--embed-thumbnail",
+            "--write-info-json",
+            url
+        ]
     elif tipo == "resolucao":
         resolucao = entrada_resolucao.get()
-        comando = f'yt-dlp -f "bestvideo[height<={resolucao}]+bestaudio/best[height<={resolucao}]" --merge-output-format mp4 -o "{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --embed-metadata --embed-thumbnail --write-info-json "{url}"'
+        comando = [
+            "yt-dlp",
+            "-f", f"bestvideo[height<={resolucao}]+bestaudio/best[height<={resolucao}]",
+            "--merge-output-format", "mp4",
+            "-o", f"{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s",
+            "--embed-metadata",
+            "--embed-thumbnail",
+            "--write-info-json",
+            url
+        ]
     elif tipo == "playlist":
-        comando = f'yt-dlp -o "{diretorio}/%(playlist_title)s/%(playlist_index)s-%(title)s [%(upload_date)s] [%(id)s].%(ext)s" --embed-metadata --embed-thumbnail --write-info-json "{url}"'
+        comando = [
+            "yt-dlp",
+            "-o", f"{diretorio}/%(playlist_title)s/%(playlist_index)s-%(title)s [%(upload_date)s] [%(id)s].%(ext)s",
+            "--embed-metadata",
+            "--embed-thumbnail",
+            "--write-info-json",
+            url
+        ]
     elif tipo == "listar_formatos":
         listar_formatos(url)
         return
