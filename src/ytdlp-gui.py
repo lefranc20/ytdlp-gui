@@ -99,6 +99,22 @@ def executar_comando(comando, tipo):
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Erro", f"Ocorreu um erro durante o download: {e}")
 
+def tem_restricao_de_idade(url):
+    # Função para verificar se o vídeo tem restrição de idade (o download de thumbnails SEMPRE sofrem esse problema)
+    comando = ["yt-dlp", "-j", url]
+    resultado = subprocess.run(comando, capture_output=True, text=True)
+    
+    if resultado.returncode != 0:
+        print(f"Erro ao tentar obter informações sobre o vídeo: {resultado.stderr}")
+        return False
+    
+    info_video = json.loads(resultado.stdout)
+    
+    # Verifica se o vídeo tem restrição de idade
+    if info_video.get('age_limit', 0) > 0:
+        return True  # Vídeo tem restrição de idade
+    return False  # Vídeo não tem restrição de idade
+
 def listar_formatos(url):
     # Lista os formatos disponíveis para o vídeo usando yt-dlp -F
     try:
@@ -141,27 +157,37 @@ def iniciar_download():
         messagebox.showerror("Erro", "Preencha todos os campos!")
         return
     
-    tipo = opcao_escolhida.get()
+    # Verifica se o vídeo tem restrição de idade
+    if tem_restricao_de_idade(url):
+        # Se tiver restrição, não baixa miniatura (não dando problemas no download do video)
+        miniatura = "--no-thumbnail"
+    else:
+        # Se não tiver restrição, baixa a miniatura
+        miniatura = "--embed-thumbnail"
+
+    tipo = opcao_escolhida.get() 
     if tipo == "audio":
         formato = formato_audio.get()
         comando = [
             "yt-dlp",
+            "--cookies", "cookies.txt",
             "-f", "bestaudio",
             "-x",
             "--audio-format", formato,
             "-o", f"{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s",
             "--embed-metadata",
-            "--embed-thumbnail",
+            miniatura,
             "--write-info-json",
             url
         ]
     elif tipo == "melhor_video":
         comando = [
             "yt-dlp",
+            "--cookies", "cookies.txt",
             "-f", "bestvideo+bestaudio", "--merge-output-format", "mp4",
             "-o", f"{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s",
             "--embed-metadata",
-            "--embed-thumbnail",
+            miniatura,
             "--write-info-json",
             url
         ]
@@ -169,20 +195,22 @@ def iniciar_download():
         resolucao = entrada_resolucao.get()
         comando = [
             "yt-dlp",
+            "--cookies", "cookies.txt",
             "-f", f"bestvideo[height<={resolucao}]+bestaudio/best[height<={resolucao}]",
             "--merge-output-format", "mp4",
             "-o", f"{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s",
             "--embed-metadata",
-            "--embed-thumbnail",
+            miniatura,
             "--write-info-json",
             url
         ]
     elif tipo == "playlist":
         comando = [
             "yt-dlp",
+            "--cookies", "cookies.txt",
             "-o", f"{diretorio}/%(playlist_title)s/%(playlist_index)s-%(title)s [%(upload_date)s] [%(id)s].%(ext)s",
             "--embed-metadata",
-            "--embed-thumbnail",
+            miniatura,
             "--write-info-json",
             url
         ]

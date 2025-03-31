@@ -2,6 +2,7 @@
 *.json
 
 # outras coisas
+cookies.txt
 build/
 dist/
 *.spec
