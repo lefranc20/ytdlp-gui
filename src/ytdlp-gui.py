@@ -177,7 +177,6 @@ def iniciar_download():
             "-o", f"{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s",
             "--embed-metadata",
             miniatura,
-            "--write-info-json",
             url
         ]
     elif tipo == "melhor_video":
@@ -188,7 +187,6 @@ def iniciar_download():
             "-o", f"{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s",
             "--embed-metadata",
             miniatura,
-            "--write-info-json",
             url
         ]
     elif tipo == "resolucao":
@@ -201,7 +199,6 @@ def iniciar_download():
             "-o", f"{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s",
             "--embed-metadata",
             miniatura,
-            "--write-info-json",
             url
         ]
     elif tipo == "playlist":
@@ -211,7 +208,6 @@ def iniciar_download():
             "-o", f"{diretorio}/%(playlist_title)s/%(playlist_index)s-%(title)s [%(upload_date)s] [%(id)s].%(ext)s",
             "--embed-metadata",
             miniatura,
-            "--write-info-json",
             url
         ]
     elif tipo == "listar_formatos":
