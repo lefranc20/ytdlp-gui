@@ -6,3 +6,4 @@ cookies.txt
 build/
 dist/
 *.spec
+__pycache__/
