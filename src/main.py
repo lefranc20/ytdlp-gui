@@ -1,5 +1,6 @@
 import tkinter as tk
 import threading
+from tkinter import messagebox
 from config import carregar_config, salvar_config, selecionar_diretorio
 from download import executar_comando
 from utils import listar_formatos, tem_restricao_de_idade
