@@ -57,7 +57,7 @@ def criar_widgets(tela, iniciar_download, selecionar_diretorio, limpar_url, ulti
     progresso.pack()
 
     # Área de saída de texto (simulando um terminal, para visualizar a saída dos comandos reais)
-    saida_texto = tk.Text(tela, height=10, width=60, bg="black", fg="white", font=("Courier", 9))
-    saida_texto.pack(fill=tk.X)
+    saida_texto = tk.Text(tela, bg="black", fg="white", font=("Courier", 9))
+    saida_texto.pack(fill="both", expand=True)
 
     return entrada_url, entrada_diretorio, opcao_escolhida, formato_audio, progresso, saida_texto

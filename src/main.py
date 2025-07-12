@@ -83,7 +83,7 @@ def main():
                 "-f", f"bestvideo[height<={resolucao}]+bestaudio/best[height<={resolucao}]",
                 "--merge-output-format", "mp4",
                 "-o", f"{diretorio}/%(title)s [%(upload_date)s] [%(id)s].%(ext)s",
-                "--embed-metadata",
+                "--embed-metadata",  
                 miniatura,
                 url
             ]
