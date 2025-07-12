@@ -24,7 +24,7 @@ def main():
         return os.path.join(base_path, caminho_relativo)
 
     # Carregar o ícone corretamente
-    icone_path = obter_caminho_recurso('icone.png')
+    icone_path = obter_caminho_recurso('src/icone.png')
     try:
         ico = Image.open(icone_path)
         photo = ImageTk.PhotoImage(ico)
